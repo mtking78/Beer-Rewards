@@ -229,7 +229,7 @@ $(document).ready(function(){
 
   // Form Validation to prevent user from leaving inputs empty
   // #weight, #activity-length, #beer-search
-  function getInputValues() {
+function getInputValues() {
 
     weight = $('#weight').val().trim();
     workoutLength = $('#activity-length').val().trim();
@@ -252,9 +252,6 @@ $(document).ready(function(){
         return false;
     // If all fields are complete, go ahead.
     } else {
-        //$('#weight').val("");
-        //$('#activity-length').val("");
-        //$('#beer-search').val("");
         return true;
     }
   }// End of getInputValues()

@@ -34,7 +34,7 @@ $(document).ready(function(){
         // Redirect to results page
         // location.href = "results.html";
       } else {
-        $("#myModal").modal();
+        //$("#myModal").modal();
       }
     });
 
