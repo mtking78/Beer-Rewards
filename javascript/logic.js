@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     // SET UP DATABASE
   
     // Initialize Firebase
@@ -120,7 +119,13 @@ $(document).ready(function(){
           }).then(function (response) {
   
               console.log(response);
-  
+              if(!response.hasOwnProperty('data')){
+                // TODO: Show error message in html elemtsnt
+                $('#beer-preference').html('No Beer Results for \'' + beerPreference + '\'');
+                // $('#beer-table').empty();
+                return false;
+              }
+              
               for (var i=0; i<12; i++) {
 
                 //   beerLogo = $('<img>').attr("src", response.data[i].labels.medium);
@@ -286,22 +291,26 @@ $(document).ready(function(){
 
             console.log(response);
 
-            var randomBeerDiv = $('<div class="random-beer">');
+                var randomBeerDiv = $('<div class="random-beer">');
 
-            var logo = response[0].image_url;
+                var logo = response[0].image_url;
 
-            var beerName = response[0].name;
-            console.log(beerName);
+                var beerName = response[0].name;
+                console.log(beerName);
 
-            randomBeerDiv.append(
-                '<img class=center height=200px src="' + logo + '">' + '<br>' + 
-                '<p id=beer-name>' + beerName + '</p>'
-            );
+                var beerDescription = response[0].description;
+                console.log(beerDescription);
 
-            $('#random-beer').append(randomBeerDiv);
-            
-        })
+                randomBeerDiv.append(
+                    '<img class=center height=200px src="' + logo + '">' + '<br>' + 
+                    '<p id=beer-name data-toggle=tooltip title="' + beerDescription + '">' + beerName + '</p>'
+                );
 
+                $('#random-beer').html(randomBeerDiv);
+                $('#beer-name').tooltip();
+                window.setTimeout(getRandomBeer, 10000);
+            }
+        )
     }
 
     getRandomBeer();
