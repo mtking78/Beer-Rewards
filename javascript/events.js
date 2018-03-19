@@ -3,8 +3,9 @@ $(document).ready(function(){
     function autoDisplayEvents() {
 
         var eventType1 = $("#workout-event").val();
+        //var eventLocation = $("#workout-location").val();
 
-        var queryURL = "http://api.eventful.com/json/events/search?app_key=J5kvbtGnvrsF2MwM&keywords=" + eventType1 + "&location=Tucson&date=Future";
+        var queryURL = "http://api.eventful.com/json/events/search?app_key=J5kvbtGnvrsF2MwM&keywords=" + eventType1 + "&location=tucson&date=Future";
 
         $.ajax({
             url: 'https://corsbridge.herokuapp.com/' + encodeURIComponent(queryURL),
@@ -53,8 +54,9 @@ $(document).ready(function(){
         $('#event-table > tbody').empty();
 
         var eventType1 = $("#workout-event").val();
+        var eventLocation = $("#workout-location").val().trim();
 
-        var queryURL = "http://api.eventful.com/json/events/search?app_key=J5kvbtGnvrsF2MwM&keywords=" + eventType1 + "&location=Tucson&date=Future";
+        var queryURL = "http://api.eventful.com/json/events/search?app_key=J5kvbtGnvrsF2MwM&keywords=" + eventType1 + "&location=" + eventLocation + "&date=Future";
 
         $.ajax({
             url: 'https://corsbridge.herokuapp.com/' + encodeURIComponent(queryURL),
@@ -64,7 +66,19 @@ $(document).ready(function(){
 
             console.log(response);
 
-            var eventful = response.events.event;
+           
+
+            if(response.events === null){
+                // TODO: Show error message in html elemtsnt
+                $('#event-table > tbody').html("<strong>" + 'No Event Results for \'' + eventLocation + '\'' + "</strong>");
+                return false;
+            }
+            // if(!response.events.hasOwnProperty('data')){
+            //     // TODO: Show error message in html elemtsnt
+            //     $('#event-table > tbody').html('No Event Results for \'' + eventLocation + '\'');
+            //     return;
+            // }
+            eventful = response.events.event;
 
             for (var i = 0; i < 10; i++) {
 
