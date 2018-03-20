@@ -96,7 +96,7 @@ $(document).ready(function(){
         if ( (eventTitle !== undefined) && (eventVenue !== undefined)) {
 
             // var row = $('<tr>').append('<td>' + '<span id="event-titles"><strong>' + '<a href="' + eventLink + '" target="_blank">' + eventTitle + '</a></strong></span>' + '<br>' + eventVenue + '<br>' + eventDateString + '<br>' + '</td>');
-            var row = $('<tr>').append('<td>' + '<p id="event-titles"><strong>' + eventTitle + '</strong>' + ' - ' + eventVenue + '<br>' + eventDateString + ' <a href="' + eventLink + '" target="_blank">' + "More Information" + '</a>' + '<br>' + '</td>');
+            var row = $('<tr>').append('<td>' + '<span id="event-titles"><strong>' + '<a href="' + eventLink + '" target="_blank">' + eventTitle + '</a>' + '</strong></span>' + '<br>' + eventVenue + '<br>' + eventDateString + '<br>' + '</td>');
             $('#event-table > tbody').append(row);
         }
     }
