@@ -265,10 +265,10 @@ $(document).ready(function(){
 
                 .append(
                     '<td>' + 
-                        '<p id="beer-titles"><strong>' + beerName + '</strong>' + ', ' + beerStyle + ', ' + abv + ' ABV' + '<br></p>' +
+                        '<p id="beer-titles"><strong><span id="beer-results-name">' + beerName + '</span></strong>' + ' ' + beerStyle + ', ' + abv + ' ABV' + '<br></p>' +
                         '<p id="brewery"><i>' + beerCompany + '</i></p><br>' +
                         '<span id="description">' + beerDescription + '</span><br>' + 
-                        '<p id="worth">Workout worth: ' + amountBeersAllowed + '</p><br>' +
+                        '<p id="worth">Workout worth (12oz): <span id="amount">' + amountBeersAllowed + '</span></p><br>' +
                     '</td>');
 
             $('#beer-table > tbody').prepend(row);
