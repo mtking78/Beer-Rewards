@@ -11,16 +11,15 @@
   <!-- Customize CSS -->
   <link rel="stylesheet" href='css/beer.css'>
 
-  <!-- Bootstrap CSS -->
-
+  <!-- Jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
 
-
   <!-- Javascript -->
-
   <script src="javascript/logic.js"></script>
   <script src="javascript/events.js"></script>
 
@@ -43,12 +42,12 @@
   <!-- NAV -->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-header">        
+        <div class="navbar-header">
           <a class="navbar-brand" style="color: white; text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; font-size: 40px;font-family:'Bitter', serif; margin-bottom: 10px;margin-left: 15px;" href="#">[Beer Rewards]</a>
         </div>
     </div> <!-- /.container-fluid -->
   </nav> <!-- /.navbar navbar-default -->
-  
+
 
 
   <!-- Row: Jumbotron -->
@@ -59,7 +58,7 @@
                 <div id="quote">
                   <h1 id="jumbotron-text" style="width: 100%; margin-top: 40px; text-align: center;">How many beers did you earn?</h1>
                   <p id="jumbotron-text" style="width: 350px; margin-left: auto; margin-right: auto; text-align: center; font-size: 20px;">Enter your workout and find out!</p>
-                </div> 
+                </div>
             </div>
         </div>
       </div>
@@ -79,7 +78,7 @@
           <!-- Heading -->
           <div class="panel-heading" style="background-color: #000; color: white; font-family: 'Work Sans', sans-serif">
             <i class="material-icons">local_drink</i>
-            <h3 class="panel-title title" style="display: inline-block; font-size: 20px;">Beer Pick</h3>
+            <h3 class="panel-title title" style="display: inline-block; font-size: 20px;">Discover Beer</h3>
           </div>
           <!-- /.panel-heading -->
           <!-- Body -->
@@ -87,12 +86,13 @@
             <div id="random-beer"></div>
             <!-- <img src="Lags.jpg" class="recipeMonth" alt="" style="width:65%; margin-left: 55px; margin-bottom: 10px;">
             <p style="text-align: center;">Lagunitas IPA India Pale Ale</p> -->
+            <!-- <button id="pausePunk">Whoah, hold on!</button> -->
           </div>
-        </div> 
-      </div> <!-- /LEFT PANEL -->
-
+        </div>
+      </div>
+      <!-- /LEFT PANEL -->
     </div>
-  </div><!-- /.container2 --> 
+  </div><!-- /.container2 -->
 
 
 
@@ -103,7 +103,7 @@
         <!-- Input Heading -->
         <div class="panel-heading" style="background-color: #000; color: white; font-family: 'Work Sans', sans-serif">
             <i class="material-icons" id="icon">event</i>
-            <h3 class="panel-title title" style="display: inline-block; font-size: 20px;">Upcoming Fitness Events</h3>
+            <h3 class="panel-title title" style="display: inline-block; font-size: 20px;">Browse Fitness Events</h3>
         </div> <!-- /.panel-heading -->
 
         <!-- Body -->
@@ -112,7 +112,7 @@
             <div class="event-choice">
               <!-- Workout activity input -->
               <div>
-                <label for="workout-event" id="event-title">Workout Event:</label>
+                <label for="workout-event" id="event-title">Event Type:</label>
                 <select id="workout-event">
                   <option value="walking">Walking</option>
                   <option value="running">Running</option>
@@ -121,7 +121,7 @@
                   <option value="hiking">Hiking</option>
                 </select>
                 <!-- Workout location input -->
-                <label for="location"> Location:</label>
+                <label for="location"> City:</label>
                 <input type="locationChoice" id="workout-location" name="user_location" placeholder="Your City">
                 <!-- Submit Button -->
                 <button class="btn btn-primary btn-xs" id="find-event" type="submit">Submit</button>
@@ -146,70 +146,70 @@
     <div class="col-md-3">
       <div class="panel panel-default" id="small-panel" style="float: left;">
 
-                 <!-- Input Heading -->
-                 <div class="panel-heading" style="background-color: #000; color: white; font-family: 'Work Sans', sans-serif">
-                    <i class="material-icons">fitness_center</i>
-                    <h3 class="panel-title title" style="display: inline-block; font-size: 20px;">Track My Workout</h3>
-                </div> <!-- /.panel-heading -->
-      
-                <!-- Input Body -->
-                <div class="panel-body">
-                  <form action="/my-handling-form-page" method="post">
-      
-                    <!-- Weight input -->
-                    <div>
-                      <label id="workout-length-input" for="user-weight" style="display: block;">Weight (lb):</label>
-                      <input type="number" id="weight" name="user_weight" min="0">
-                    </div>
-                    <p id="invalid-weight"></p>
-                    <!-- Workout activity input -->
-                    <div>
-                      <label for="workout" style="display: block;">Workout:</label>
-                      <select id="workout">
-                        <option value="3.8">Walking</option>
-                        <option value="7.5">Running</option>
-                        <option value="8">Biking</option>
-                        <option value="3">Yoga</option>
-                        <option value="6">Hiking</option>
-                      </select>
-                    </div>
-                    <!-- Workout length -->
-                    <div>
-                      <label for="activity" style="display: block;">Activity Length (hr):</label>
-                      <input type="number" id="activity-length" name="user_activity" min="0">
-                    </div>
-                    <!-- Beer Preference -->
-                    <div>
-                      <label for="beer" style="display: block;">Beer Preference:</label>
-                      <input type="beerChoice" id="beer-search" name="user_beer">
-                    </div>
-                    <!-- Submit Button -->
-                    <button class="btn btn-primary" id="find-beer" type="submit" data-target="#myModal">Submit</button>
-      
-                    <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
-                        <!-- Modal Content -->
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color: #000; color: white;">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">No beer for you!</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Please make sure every input is filled to receive Beer Rewards.</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div> <!-- End of Modal Content -->
-                      </div>
-                    </div> <!-- End of Modal -->
-                    
-                  </form>
-                </div> <!-- /.panel-body -->
-      
-              <!-- /.panel-body -->
+        <!-- Input Heading -->
+        <div class="panel-heading" style="background-color: #000; color: white; font-family: 'Work Sans', sans-serif">
+          <i class="material-icons">fitness_center</i>
+          <h3 class="panel-title title" style="display: inline-block; font-size: 20px;">Track My Workout</h3>
+        </div> <!-- /.panel-heading -->
+
+        <!-- Input Body -->
+        <div class="panel-body">
+          <form action="/my-handling-form-page" method="post">
+
+            <!-- Weight input -->
+            <div>
+              <label id="workout-length-input" for="user-weight" style="display: block;">Weight (lb):</label>
+              <input type="number" id="weight" name="user_weight" min="0">
+            </div>
+            <p id="invalid-weight"></p>
+            <!-- Workout activity input -->
+            <div>
+              <label for="workout" style="display: block;">Workout:</label>
+              <select id="workout">
+                <option value="3.8">Walking</option>
+                <option value="7.5">Running</option>
+                <option value="8">Biking</option>
+                <option value="3">Yoga</option>
+                <option value="6">Hiking</option>
+              </select>
+            </div>
+            <!-- Workout length -->
+            <div>
+              <label for="activity" style="display: block;">Activity Length (hr):</label>
+              <input type="number" id="activity-length" name="user_activity" min="0">
+            </div>
+            <!-- Beer Preference -->
+            <div>
+              <label for="beer" style="display: block;">Beer Preference:</label>
+              <input type="beerChoice" id="beer-search" name="user_beer">
+            </div>
+            <!-- Submit Button -->
+            <button class="btn btn-primary" id="find-beer" type="submit" data-target="#myModal">Submit</button>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal Content -->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #000; color: white;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">No beer for you!</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Please make sure every input is filled to receive Beer Rewards.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div> <!-- End of Modal Content -->
+              </div>
+            </div> <!-- End of Modal -->
+
+          </form>
+        </div> <!-- /.panel-body -->
+
       </div>
+      <!-- /RIGHT PANEL -->
     </div>
     <!-- <div class="col-md-1"></div> -->
 
@@ -235,7 +235,7 @@
 
           <!-- Change preference -->
           <form id="change-beer-preference">
-            <label for="beer">Change Beer Preference:</label>
+            <label for="beer">Change Beer Type:</label>
             <input type="beerChoice" id="beer-search-change" name="user_beer">
             <!-- Submit Button -->
             <button class="btn btn-primary btn-xs" id="change-beer" type="submit">Submit</button>
@@ -249,7 +249,7 @@
               <tbody></tbody>
             </table>
           </div>
-          
+
           <div class="col-md-1"></div>
 
         </div>

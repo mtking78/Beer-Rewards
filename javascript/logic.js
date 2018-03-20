@@ -37,58 +37,75 @@ $(document).ready(function(){
         // Go ahead as long as inputs are validated.
         if(getInputValues()){
 
-          // var key = ref.push().getKey()
-          // firebase.push({...}).then( function (result) { console.log("generated key: " + result.key); });
+            // Capture weight input
+            var weight = $('#weight').val().trim();
+            $('#weight').val('');
+            console.log('Weight: ' + weight);
 
-          // Capture weight input
-          var weight = $('#weight').val().trim();
-          $('#weight').val('');
-          console.log('Weight: ' + weight);
+            // Capture MET number from exercise input
+            var workoutMetValue = $('#workout').val();
+            $('#workout').val('');
+            console.log('MET: ' + workoutMetValue);
 
-          // Capture MET number from exercise input
-          var workoutMetValue = $('#workout').val();
-          $('#workout').val('');
-          console.log('MET: ' + workoutMetValue);
+            // var workoutActivity = $('#workout option:selected').text(); // <-- Not working?
+            // console.log('Workout activity: ' + workoutActivity);
 
-          // var workoutActivity = $('#workout option:selected').text(); // <-- Not working?
-          // console.log('Workout activity: ' + workoutActivity);
+            // Capture length of workout
+            var workoutLength = $('#activity-length').val().trim();
+            $('#activity-length').val('');
+            console.log('Workout: ' + workoutLength + 'hrs');
 
-          // Capture length of workout
-          var workoutLength = $('#activity-length').val().trim();
-          $('#activity-length').val('');
-          console.log('Workout: ' + workoutLength + 'hrs');
+            // Create object components for user
+            data = {
+                weight: weight,
+                MET: workoutMetValue,
+                workoutLength: workoutLength
+            }
 
-          // Create object components for user
-          data = {
-              weight: weight,
-              MET: workoutMetValue,
-              workoutLength: workoutLength
-          }
+            // Add user data to database
+            ref.push(data).then( function (result) {
+                console.log("Generated key: " + result.key);
+            });
 
-          // Add user data to database
-          ref.push(data).then( function (result) { 
-              console.log("Generated key: " + result.key); 
-          });;
+            // Capture beer preference
+            var beerPreference = $('#beer-search').val().trim();
+            $('#beer-search').val('');
+            console.log('Beer preference: ' + beerPreference);
 
-          // Capture beer preference
-          var beerPreference = $('#beer-search').val().trim();
-          $('#beer-search').val('');
-          console.log('Beer preference: ' + beerPreference);
+            calories(workoutMetValue, weight);
 
-          calories(workoutMetValue, weight);
+            if (beerPreference !== '') {
+                searchBreweryDb(beerPreference);
 
-          if (beerPreference !== '') {
-              searchBreweryDb(beerPreference);
+            //   $('html, body').animate({
+            //       scrollTop: $("#beer-results").offset().top + 700
+            //   }, 1000);
+                function mediaSize() {
+                    var isTabletLandscape = window.matchMedia('(min-width: 992px) and (max-width: 1366px) and (orientation: landscape)');
+                    var isPhoneLandscape = window.matchMedia('(min-width: 320px) and (max-width: 991px) and (orientation: landscape)');
+                    var isPhonePortrait = window.matchMedia('(min-width: 320px) and (max-width: 812px) and (orientation: portrait)');
+                    if (isTabletLandscape.matches) {
+                        $('html,body').animate({scrollTop: $("#beer-results").offset().top + 600
+                    }, 1000)
+                    } else if (isPhoneLandscape.matches) {
+                        $('html,body').animate({scrollTop: $("#beer-results").offset().top + 1400
+                    }, 1000)
+                    } else if (isPhonePortrait.matches) {
+                        $('html,body').animate({scrollTop: $("#beer-results").offset().top + 1400
+                    }, 1000)
+                    } else {
+                        $('html,body').animate({scrollTop: $("#beer-results").offset().top + 600
+                    }, 1000)
+                    }
+                }
+                mediaSize();
+            }
 
-              $('html, body').animate({
-                  scrollTop: $("#beer-results").offset().top + 800
-              }, 2000);
-          }
+        // Run the modal if user doesn't fill out all required fields
         } else {
-          $("#myModal").modal();
+            $("#myModal").modal();
         }
-
-      });
+    });
 
 
 
@@ -119,148 +136,148 @@ $(document).ready(function(){
     var breweryLocation;
     var beerDescription;
     var count = 0;
-  
+
     // Div to hold beer item for list results
     var beerListItemDiv = $('<div class="beer-list-item">');
-  
+
     // AJAX call to get beer info
-      function searchBreweryDb(beerPreference) {
-  
-          var myURL = "http://api.brewerydb.com/v2/search/?key=2d763c46c3991fbfd625ffaea69e88f6&q=" + beerPreference + "&withBreweries=Y";
-          $.ajax( {
-              url: 'https://corsbridge.herokuapp.com/' + encodeURIComponent(myURL),
-              method: "GET"
-          }).then(function (response) {
-  
-              console.log(response);
-              if(!response.hasOwnProperty('data')){
-                // TODO: Show error message in html elemtsnt
-                $('#beer-preference').html('No Beer Results for \'' + beerPreference + '\'');
-                // $('#beer-table').empty();
-                return false;
-              }
-              
-              for (var i=0; i<12; i++) {
+    function searchBreweryDb(beerPreference) {
+
+        var myURL = "http://api.brewerydb.com/v2/search/?key=2d763c46c3991fbfd625ffaea69e88f6&q=" + beerPreference + "&withBreweries=Y";
+        $.ajax( {
+            url: 'https://corsbridge.herokuapp.com/' + encodeURIComponent(myURL),
+            method: "GET"
+        }).then(function (response) {
+
+            console.log(response);
+            if(!response.hasOwnProperty('data')){
+            // Show error message in html element
+            $('#beer-preference').html('No Beer Results for \'' + beerPreference + '\'');
+            // $('#beer-table').empty();
+            return false;
+            }
+
+            $('#beer-table > tbody').empty();
+
+            for (var i=0; i<12; i++) {
 
                 //   beerLogo = $('<img>').attr("src", response.data[i].labels.medium);
-  
-                  beerName = response.data[i].nameDisplay;
-                  console.log('Beer name: ' + beerName);
-                  if (beerName == undefined) {
-                    $('#beer-table > tbody').text("No results found for " + beerPreference);
-                  }
-  
-                  beerStyle = response.data[i].style.name;
-                  console.log('Beer style: ' + beerStyle);
-  
-                  abv = response.data[i].abv;
-                  console.log('ABV: ' + abv);
 
-                  breweryLocality = response.data[i].breweries[0].locations[0].locality;
-                  breweryRegion = response.data[i].breweries[0].locations[0].region;
-                  breweryLocation = ' in ' + breweryLocality + ', ' + breweryRegion;
-                  console.log('Location: ' + breweryLocation);
+                beerName = response.data[i].nameDisplay;
+                console.log('Beer name: ' + beerName);
+                if (beerName == undefined) {
+                $('#beer-table > tbody').text("No results found for " + beerPreference);
+                }
 
-                  beerCompany = response.data[i].breweries[0].name;
-                  console.log(beerCompany);
-                  if ( (beerCompany == undefined) && (breweryLocality == undefined) && (breweryRegion == undefined) ) {
-                      beerCompany = '';
-                      breweryLocation = '';
-                  }
-                  else if ( (breweryLocality == undefined) && (breweryRegion == undefined) ){
+                if (response.data[i].style !== undefined){
+                    beerStyle = response.data[i].style.name;
+                    console.log('Beer style: ' + beerStyle);
+                }
+
+                abv = response.data[i].abv;
+                console.log('ABV: ' + abv);
+
+                breweryLocality = response.data[i].breweries[0].locations[0].locality;
+                breweryRegion = response.data[i].breweries[0].locations[0].region;
+                breweryLocation = ' in ' + breweryLocality + ', ' + breweryRegion;
+                console.log('Location: ' + breweryLocation);
+
+                beerCompany = response.data[i].breweries[0].name;
+                console.log(beerCompany);
+                if ( (beerCompany == undefined) && (breweryLocality == undefined) && (breweryRegion == undefined) ) {
+                    beerCompany = '';
+                    breweryLocation = '';
+                }
+                else if ( (breweryLocality == undefined) && (breweryRegion == undefined) ){
                     beerCompany = 'Brewed by ' + beerCompany;
-                  }
-                  else if ( (breweryLocality == undefined) && (breweryRegion !== undefined) ){
+                }
+                else if ( (breweryLocality == undefined) && (breweryRegion !== undefined) ){
                     beerCompany = 'Brewed by ' + beerCompany + ' in ' + breweryRegion;
-                  }
-                  else {
-                      beerCompany = 'Brewed by ' + beerCompany + breweryLocation;
-                  }
-  
-                  beerDescription = response.data[i].description;
-                  console.log('Beer description: ' + beerDescription);
+                }
+                else {
+                    beerCompany = 'Brewed by ' + beerCompany + breweryLocation;
+                }
 
-                  estimateCalories(abv);
-  
-                  // Hide instructions
-                  $('#start-message').hide();
+                beerDescription = response.data[i].description;
+                console.log('Beer description: ' + beerDescription);
 
-                  $('#beer-results').show();
+                estimateCalories(abv);
 
-                  $('#beer-preference').html('Beer Results for \'' + beerPreference + '\'');
+                // Hide instructions
+                $('#start-message').hide();
 
-                //   $('#workout-display').text('Workout: ' + workoutLength + ' hours');
+                $('#beer-results').show();
 
-                  $('#change-beer-preference').show();
+                $('#beer-preference').html('Beer Results for \'' + beerPreference + '\'');
 
-                //   $('html, body').animate({
-                //     scrollTop: $("#beer-results").offset().top + 300
-                // }, 2000);
-  
-              }
-          })
-      };
-  
-  
-  
-      // CALORIES/12 OZ
-      var caloriesEstPer12oz;
-  
-      // Estimate calories per 12 oz beer
-      function estimateCalories(abv) {
-          caloriesEstPer12oz = parseInt(abv) * 2.5 * 12;
-          console.log('Calories estimate per 12oz: ' + caloriesEstPer12oz);
-  
-          estimateWorkoutWorth(caloriesBurned, caloriesEstPer12oz);
-      }
-  
-  
-  
-      // # OF BEERS ALLOWED
-      var amountBeersAllowed;
-      // Estimate amount of beer type allowed
-      function estimateWorkoutWorth(caloriesBurned, caloriesEstPer12oz) {
-          amountBeersAllowed = caloriesBurned/caloriesEstPer12oz;
-          if (amountBeersAllowed == NaN) {
-              amountBeersAllowed = '';
-          }
-          else {
-             amountBeersAllowed = Math.round( amountBeersAllowed * 10 ) / 10;
-          }
-          console.log('Amount of beers allowed: ' + amountBeersAllowed);
-  
-          displayResults();
-      }
-  
-  
+                // $('#workout-display').text('Workout: ' + workoutLength + ' hours');
 
-      // ADD TO RESULTS
-      function displayResults() {
-  
-        if ( (abv !== undefined) && (beerDescription !== undefined) ) {
-          var row = $('<tr>')
-              // Append image here
-            //   .append(
-            //       '<td>' + 
-            //           beerLogo +
-            //       '<td>'
-            //   )
+                $('#change-beer-preference').show();
 
-            .append(
-                '<td>' + 
-                    '<p id="beer-titles"><strong>' + beerName + '</strong>' + ', ' + beerStyle + ', ' + abv + ' ABV' + '<br></p>' +
-                    '<p id="brewery"><i>' + beerCompany + '</i></p><br>' +
-                    '<span id="description">' + beerDescription + '</span><br>' + 
-                    '<p id="worth">Workout worth: ' + amountBeersAllowed + '</p><br>' +
-                '</td>');
-        
-          $('#beer-table > tbody').prepend(row);
+            }
+        })
+    };
+
+
+    // CALORIES/12 OZ
+    var caloriesEstPer12oz;
+
+    // Estimate calories per 12 oz beer
+    function estimateCalories(abv) {
+        caloriesEstPer12oz = parseInt(abv) * 2.5 * 12;
+        console.log('Calories estimate per 12oz: ' + caloriesEstPer12oz);
+
+        estimateWorkoutWorth(caloriesBurned, caloriesEstPer12oz);
+    }
+
+
+
+    // # OF BEERS ALLOWED
+    var amountBeersAllowed;
+    // Estimate amount of beer type allowed
+    function estimateWorkoutWorth(caloriesBurned, caloriesEstPer12oz) {
+        amountBeersAllowed = caloriesBurned/caloriesEstPer12oz;
+        if (amountBeersAllowed == NaN) {
+            amountBeersAllowed = '';
+        }
+        else {
+            amountBeersAllowed = Math.round( amountBeersAllowed * 10 ) / 10;
+        }
+        console.log('Amount of beers allowed: ' + amountBeersAllowed);
+
+        displayResults();
+    }
+
+
+
+    // ADD TO RESULTS
+    function displayResults() {
+
+        if ( (abv !== undefined) && (beerDescription !== undefined) && (beerStyle !== undefined)) {
+
+            var row = $('<tr>')
+                // Append image here
+                //   .append(
+                //       '<td>' + 
+                //           beerLogo +
+                //       '<td>'
+                //   )
+
+                .append(
+                    '<td>' + 
+                        '<p id="beer-titles"><strong>' + beerName + '</strong>' + ', ' + beerStyle + ', ' + abv + ' ABV' + '<br></p>' +
+                        '<p id="brewery"><i>' + beerCompany + '</i></p><br>' +
+                        '<span id="description">' + beerDescription + '</span><br>' + 
+                        '<p id="worth">Workout worth: ' + amountBeersAllowed + '</p><br>' +
+                    '</td>');
+
+            $('#beer-table > tbody').prepend(row);
 
         }
 
-      }
+    }
 
-    
+
 
     $("#change-beer").on("click", function(event) {
         event.preventDefault();
@@ -272,31 +289,28 @@ $(document).ready(function(){
 
         // Get workout info from database
         // Get snapshot of weight, MET, and workoutLength
-        database.ref().child('user/weight').on('value', function(snapshot) {
-            weight = snapshot.val();
-            console.log('Snapshot weight: ' + weight);
-        })
-        database.ref().child('user/MET').on('value', function(snapshot) {
-            workoutMetValue = snapshot.val();
-            console.log('Snapshot MET: ' + workoutMetValue);
-        })
-        database.ref().child('user/workoutLength').on('value', function(snapshot) {
-            workoutLength = snapshot.val();
-            console.log('Snapshot workout length: ' + workoutLength);
-        })
+        // database.ref().child('user/weight').on('value', function(snapshot) {
+        //     weight = snapshot.val();
+        //     console.log('Snapshot weight: ' + weight);
+        // })
+        // database.ref().child('user/MET').on('value', function(snapshot) {
+        //     workoutMetValue = snapshot.val();
+        //     console.log('Snapshot MET: ' + workoutMetValue);
+        // })
+        // database.ref().child('user/workoutLength').on('value', function(snapshot) {
+        //     workoutLength = snapshot.val();
+        //     console.log('Snapshot workout length: ' + workoutLength);
+        // })
 
         if (beerPreference !== '') {
             searchBreweryDb(beerPreference);
-          }
+        }
 
     })
 
-
-
-
     // PUNK API
     function getRandomBeer() {
-  
+
         var queryURL = "https://api.punkapi.com/v2/beers/random";
         $.ajax( {
             url: queryURL,
@@ -329,7 +343,6 @@ $(document).ready(function(){
 
     getRandomBeer();
 
-
     // Form Validation to prevent user from leaving inputs empty
     // #weight, #activity-length, #beer-search
     function getInputValues() {
@@ -337,7 +350,7 @@ $(document).ready(function(){
         weight = $('#weight').val().trim();
         workoutLength = $('#activity-length').val().trim();
         beerPreference = $('#beer-search').val().trim();
-    
+
         // Tests if 'Weight' input exists.
         if(weight === "") {
             //alert("Please enter your weight");
