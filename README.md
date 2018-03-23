@@ -2,7 +2,7 @@
 
 ## Developed by Robert Aguero, Geina Corrente, Matt King and Stefanie Loh
 
-# [LIVE DEMO](https://sloh03.github.io/beerRewards/)
+# [LIVE DEMO](https://mtking78.github.io/beerRewards/)
 
 # Concept
 
@@ -161,19 +161,13 @@ Click 'More Information' to visit the event website.
 
 
 # Future Development
-* Enter page
-* Create user login, track calories burned over time and favorite beers
-* Add images, maps, and ratings to beer results
-* Search beer by distance
-* Add pages to beer results
-* Convert website into Android, iOS mobile app
+- [ ] Enter page
+- [ ] Page footer
+- [ ] Beers earned calculation check
+- [ ] Create user login, track calories burned over time and favorite beers
+- [ ] Add images, maps, and ratings to beer results
+- [ ] Search beer by distance
+- [ ] Add pages to beer results
+- [ ] Convert website into Android, iOS mobile app
 
 ![Alt text](images/8development.png?raw=true "Fullscreen")
-
-### To do:
-- [ ] Style the modals
-- [ ] Add dynamic hyperlink to events
-- [ ] Add image to events (if existant)
- ### *Extras*:
- - [ ] Store cumalative user data for calories burned?
- - [ ] Have a math function to track calories burned and gained (from beer choice?)
