@@ -163,6 +163,7 @@ Click 'More Information' to visit the event website.
 # Future Development
 - [ ] Enter page
 - [ ] Page footer
+- [ ] Beers earned calculation check
 - [ ] Create user login, track calories burned over time and favorite beers
 - [ ] Add images, maps, and ratings to beer results
 - [ ] Search beer by distance
