@@ -330,26 +330,14 @@ $(document).ready(function(){
         $('#beer-search-change').val('');
         console.log('Change preference to: ' + beerPreference);
 
-        // Get workout info from database
-        // Get snapshot of weight, MET, and workoutLength
-        // database.ref().child('user/weight').on('value', function(snapshot) {
-        //     weight = snapshot.val();
-        //     console.log('Snapshot weight: ' + weight);
-        // })
-        // database.ref().child('user/MET').on('value', function(snapshot) {
-        //     workoutMetValue = snapshot.val();
-        //     console.log('Snapshot MET: ' + workoutMetValue);
-        // })
-        // database.ref().child('user/workoutLength').on('value', function(snapshot) {
-        //     workoutLength = snapshot.val();
-        //     console.log('Snapshot workout length: ' + workoutLength);
-        // })
-
         // If form is not blank, call function to search for beers
         if (beerPreference !== '') {
             searchBreweryDb(beerPreference);
         }
+
     })
+
+
 
     // PUNK API
     function getRandomBeer() {
@@ -389,13 +377,15 @@ $(document).ready(function(){
 
                 // Display new beer every 10 seconds
                 window.setTimeout(getRandomBeer, 10000);
-            }
-        )
+        })
     }
 
     getRandomBeer();
 
-    // Form Validation to prevent user from leaving inputs empty
+
+
+    // Form Validation
+    // Prevent user from leaving inputs empty
     // #weight, #activity-length, #beer-search
     function getInputValues() {
 
